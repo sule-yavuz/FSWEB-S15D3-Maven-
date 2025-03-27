@@ -37,44 +37,49 @@ public class MainTest {
         Field firstnameFields = employees.get(0).getClass().getDeclaredField("firstname");
         Field lastnameFields = employees.get(0).getClass().getDeclaredField("lastname");
 
-        assertEquals(idFields.getModifiers(), 2);
-        assertEquals(firstnameFields.getModifiers(), 2);
-        assertEquals(lastnameFields.getModifiers(), 2);
+        assertEquals(2, idFields.getModifiers());  // Private mı?
+        assertEquals(2, firstnameFields.getModifiers());
+        assertEquals(2, lastnameFields.getModifiers());
     }
 
     @DisplayName("findDuplicates method doğru çalışıyor mu?")
     @Test
     public void testFindDuplicatesMethod() {
         List<Employee> list = Main.findDuplicates(employees);
-        assertEquals(list.size(), 3);
-        assertEquals(list.get(0).getFirstname(), "Dogancan");
+        assertEquals(3, list.size());  // "Dogancan", "Seyyit Battal", "Anil" tekrar ediyor.
+        assertEquals("Dogancan", list.get(0).getFirstname());
     }
 
     @DisplayName("findUniques method doğru çalışıyor mu?")
     @Test
     public void testFindUniquesMethod() {
         Map<Integer, Employee> map = Main.findUniques(employees);
-        assertEquals(map.size(), 4);
-        assertEquals(map.get(1).getFirstname(), "Dogancan");
+        assertEquals(1, map.size());  // Sadece "Burak" tekil.
+        assertEquals("Burak", map.get(4).getFirstname());
     }
 
     @DisplayName("removeDuplicates method doğru çalışıyor mu?")
     @Test
     public void testRemoveMethod() {
         List<Employee> list = Main.removeDuplicates(employees);
-        System.out.println(list);
-        assertEquals(list.size(), 1);
-        assertEquals(list.get(0).getFirstname(), "Burak");
+        assertEquals(1, list.size());  // Tekrar edenleri çıkarınca sadece "Burak" kalır.
+        assertEquals("Burak", list.get(0).getFirstname());
     }
+
+
+
 
     @DisplayName("calculatedWord method doğru çalışıyor mu?")
     @Test
     public void testCalculateWordMethod() {
         Map<String, Integer> map = WordCounter.calculatedWord();
-        assertEquals(map.get("which"), 3);
-        assertEquals(map.get("turkish"), 2);
-        assertEquals(map.get("mustafa"), 3);
-        assertEquals(map.get("kemal"), 3);
+        assertEquals(3, map.get("which"));
+        assertEquals(2, map.get("turkish"));
+        assertEquals(3, map.get("mustafa"));
+        assertEquals(3, map.get("kemal"));
     }
+
+
+
 
 }
